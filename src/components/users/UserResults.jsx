@@ -1,12 +1,12 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import GithubContext from "../../context/gihhub/GithubContext";
 import UserItems from "./UserItems";
 
 function UserResults(props) {
-  const { users, isLoading, fetchUsers } = useContext(GithubContext);
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+  const { users, isLoading } = useContext(GithubContext);
+  // useEffect(() => {
+  //   fetchUsers();
+  // }, []);
 
   if (!isLoading) {
     return (
