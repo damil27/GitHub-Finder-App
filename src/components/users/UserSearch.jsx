@@ -4,12 +4,14 @@ import GithubContext from "../../context/gihhub/GithubContext";
 function UserSearch(props) {
   const [text, setText] = useState("");
   const { users, searchUsers, clearUser } = useContext(GithubContext);
+  // const { setAlert } = useContext(AlertContext);
+
   const handleChange = (e) => setText(e.target.value);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (text === "") {
-      alert("Please enter Something");
+      alert("Please enter Something", "error");
     } else {
       searchUsers(text);
       setText("");

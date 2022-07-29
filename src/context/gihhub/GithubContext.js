@@ -1,3 +1,4 @@
+import { data } from "autoprefixer";
 import { createContext, useReducer } from "react";
 import githubReducer from "./GithubReducer";
 
@@ -11,6 +12,7 @@ const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 export const GithubProvider = ({ children }) => {
   const initialState = {
     users: [],
+    userLogin: {},
     isLoading: false,
   };
   const [state, dispatch] = useReducer(githubReducer, initialState);
@@ -28,10 +30,27 @@ export const GithubProvider = ({ children }) => {
       payload: items,
     });
   };
+
+  const getUser = async (login) => {
+    setLoading();
+
+    const res = await fetch(`https://api.github.com/users/${login}`);
+
+    if (res.status === 404) {
+      window.location = "/notfound";
+    } else {
+      const result = await res.json();
+
+      dispatch({
+        type: "USER_DATA",
+        load: result,
+      });
+    }
+  };
+
   const clearUser = () => {
     dispatch({
       type: "CLEAR_USER",
-      payload: null,
     });
   };
   // set_loading function
@@ -39,11 +58,14 @@ export const GithubProvider = ({ children }) => {
     dispatch({
       type: "SET_LOADING",
     });
+
   return (
     <GithubContext.Provider
       value={{
         users: state.users,
         isLoading: state.isloading,
+        userLogin: state.userLogin,
+        getUser,
         searchUsers,
         clearUser,
       }}

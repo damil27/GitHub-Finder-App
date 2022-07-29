@@ -11,6 +11,12 @@ const githubReducer = (state, action) => {
         ...state,
         isloading: true,
       };
+    case "USER_DATA":
+      return {
+        ...state,
+        userLogin: action.load,
+        isloading: false,
+      };
     case "CLEAR_USER":
       return {
         ...state,
