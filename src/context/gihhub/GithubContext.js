@@ -6,13 +6,13 @@ import githubReducer from "./GithubReducer";
 const GithubContext = createContext();
 // url process variable
 const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
-const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 
 //context provider function
 export const GithubProvider = ({ children }) => {
   const initialState = {
     users: [],
     userLogin: {},
+    repos: [],
     isLoading: false,
   };
   const [state, dispatch] = useReducer(githubReducer, initialState);
@@ -47,6 +47,26 @@ export const GithubProvider = ({ children }) => {
       });
     }
   };
+  // get repository function
+  const getRepos = async (login) => {
+    const params = new URLSearchParams({
+      sort: "created",
+      per_page: 10,
+    });
+    const response = await fetch(
+      `https://api.github.com/users/${login}/repos?${params}`
+    );
+    if (response.status === 404) {
+      window.location = "/notfound";
+    } else {
+      const result = await response.json();
+
+      dispatch({
+        type: "REPO",
+        payload: result,
+      });
+    }
+  };
 
   const clearUser = () => {
     dispatch({
@@ -65,9 +85,11 @@ export const GithubProvider = ({ children }) => {
         users: state.users,
         isLoading: state.isloading,
         userLogin: state.userLogin,
+        repos: state.repos,
         getUser,
         searchUsers,
         clearUser,
+        getRepos,
       }}
     >
       {children}

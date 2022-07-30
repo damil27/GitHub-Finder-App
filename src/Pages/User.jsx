@@ -2,13 +2,16 @@ import React, { useEffect, useContext } from "react";
 import { FaCodepen, FaStore, FaUserFriends, FaUsers } from "react-icons/fa";
 import GithubContext from "../context/gihhub/GithubContext";
 import { useParams, Link } from "react-router-dom";
+import UserRepository from "../components/repository/UserRepository";
 
 function User(props) {
-  const { getUser, userLogin, isLoading } = useContext(GithubContext);
+  const { getUser, userLogin, isLoading, getRepos, repos } =
+    useContext(GithubContext);
   const { login } = useParams();
 
   useEffect(() => {
     getUser(login);
+    getRepos(login);
   }, []);
 
   const {
@@ -60,8 +63,12 @@ function User(props) {
                   {hireable && (
                     <div className="mx-1 badge badge-info">Hireable</div>
                   )}
+                  {hireable && (
+                    <div className="mx-1 badge badge-info">Hireable</div>
+                  )}
                 </h1>
               </div>
+
               <p>{bio}</p>
               <div className="mt-4 card-actions">
                 <a
@@ -75,8 +82,83 @@ function User(props) {
                 </a>
               </div>
             </div>
+            <div className="w-full rounded-lg shadow-md bg-base-700 inline ">
+              <div>
+                {location && (
+                  <div className="stat">
+                    <div className="stat-titl text-sm"> Location</div>
+                    <div className="stat-md text-white text-sm stat-value">
+                      {location}
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div>
+                {blog && (
+                  <div className="stat">
+                    <div className="stat-titl text-md"> Website </div>
+                    <div className="stat-md text-white text-sm stat-value">
+                      <a
+                        href={`https://${blog}`}
+                        target="_black"
+                        rel="noreferrer"
+                      >
+                        {blog}
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div>
+                {twitter_username && (
+                  <div className="stat">
+                    <div className="stat-titl text-md"> Twitter </div>
+                    <div className="stat-md text-white text-sm stat-value">
+                      <a
+                        href={`https://twitter.com/${twitter_username}`}
+                        target="_black"
+                        rel="noreferrer"
+                      >
+                        {twitter_username}
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
+        <div className="w-full py-5 mb-6 rounded-lg shadow-md bg-base-100 stats">
+          <div className="stat">
+            <div className="stat-figure text-secondary">
+              <FaUsers className="text-3xl " />
+            </div>
+            <div className="stat-title pr-5">Followers</div>
+            <div className="stat-value text-3xl pr-5">{followers}</div>
+          </div>
+          <div className="stat">
+            <div className="stat-figure text-secondary">
+              <FaUserFriends className="text-3xl " />
+            </div>
+            <div className="stat-title pr-5">Following</div>
+            <div className="stat-value text-3xl pr-5">{following}</div>
+          </div>
+          <div className="stat">
+            <div className="stat-figure text-secondary">
+              <FaCodepen className="text-3xl " />
+            </div>
+            <div className="stat-title pr-5">Public Repos</div>
+            <div className="stat-value text-3xl pr-5">{public_repos}</div>
+          </div>
+          <div className="stat">
+            <div className="stat-figure text-secondary">
+              <FaStore className="text-3xl" />
+            </div>
+            <div className="stat-title pr-5">Public Gist</div>
+            <div className="stat-value text-3xl  pr-5">{public_gists}</div>
+          </div>
+        </div>
+        <UserRepository repos={repos} />
       </div>
     </>
   );
