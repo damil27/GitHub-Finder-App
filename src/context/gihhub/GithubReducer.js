@@ -6,7 +6,7 @@ const githubReducer = (state, action) => {
         users: action.payload,
         isloading: false,
       };
-    case "SET_LOAIDNG":
+    case "SET_LOADING":
       return {
         ...state,
         isloading: true,
@@ -14,7 +14,7 @@ const githubReducer = (state, action) => {
     case "USER_DATA":
       return {
         ...state,
-        userLogin: action.load,
+        userLogin: action.payload,
         isloading: false,
       };
     case "REPO":
@@ -24,7 +24,7 @@ const githubReducer = (state, action) => {
         isloading: false,
       };
 
-    case "CLEAR_USER":
+    case "CLEAR_USERS":
       return {
         ...state,
         users: [],
