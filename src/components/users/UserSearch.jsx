@@ -29,13 +29,14 @@ function UserSearch(props) {
   return (
     <div className="grid grid-cols-1 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 mb-8 gap-8">
       <div>
+        <h2 className="card-title mb-4">GitHub Finder App</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-control">
             <div className="relative">
               <input
                 type="text"
                 className="w-full pr-40 bg-gray-200 input input-lg text-black"
-                placeholder="Search"
+                placeholder="Enter Github Username"
                 value={text}
                 onChange={handleChange}
               />

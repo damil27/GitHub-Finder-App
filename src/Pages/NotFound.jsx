@@ -7,8 +7,8 @@ function NotFound(props) {
     <div className="hero">
       <div className="text-center hero-content">
         <div className="max-w-lg">
-          <h1 className="text-8xl font-bold mb-8">Oop!</h1>
-          <p className="text-5xl mb-8">404-Page not found!</p>
+          <h1 className="text-8xl font-bold mb-8">contact</h1>
+          <p className="text-5xl mb-8">dhamilare27@gmail.com </p>
           <Link to="/" className="btn btn-secondary btn-lg">
             <FaHome className="mr-2" />
             Bact To Home
